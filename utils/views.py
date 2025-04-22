@@ -41,16 +41,6 @@ class PostViewer(View):
     async def generate_embed(self):
         return PostEmbed(self.post, self.index)
 
-    # @discord.ui.button(label="⬅")
-    # async def previous(self, _: Button, interaction: discord.Interaction):
-    #     self.index = (self.index - 1) % len(self.comments)
-    #     await interaction.response.edit_message(embeds=await self.generate_embed(), view=self)
-    #
-    # @discord.ui.button(label="➡")
-    # async def next(self, _: Button, interaction: discord.Interaction):
-    #     self.index = (self.index + 1) % len(self.comments)
-    #     await interaction.response.edit_message(embeds=await self.generate_embed(), view=self)
-
     @discord.ui.button(emoji="<:comment:1363552669733748948>")
     async def comments(self, _: Button, interaction: discord.Interaction):
         comment_view = PostCommentViewer(self.post)
