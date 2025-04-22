@@ -6,9 +6,9 @@ from .parser import PostParser, CommentParser
 class PostEmbed(discord.Embed):
     def __init__(self, post: PostParser, media_index=0, include_media: bool = True):
         if post.text:
-            description = f"{post.text}\n\n<:upvote:1363552719834579145> {post.score} | <:comment:1363552669733748948> {post.comment_count}"
+            description = f"{post.text}\n\n<:upvote:1363552719834579145> {post.score} | <:comment:1363552669733748948> {post.comment_count}"
         else:
-            description = f"<:upvote:1363552719834579145> {post.score} | <:comment:1363552669733748948> {post.comment_count}"
+            description = f"<:upvote:1363552719834579145> {post.score} | <:comment:1363552669733748948> {post.comment_count}"
 
         super().__init__(
             title=post.title,
@@ -52,4 +52,4 @@ class CommentEmbed(discord.Embed):
 
         self.add_field(
             name="",
-            value=f"<:upvote:1363552719834579145> {comment.score} | <:comment:1363552669733748948> {comment.reply_count}")
+            value=f"<:upvote:1363552719834579145> {comment.score} | <:comment:1363552669733748948> {comment.reply_count}")
