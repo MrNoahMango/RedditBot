@@ -4,7 +4,6 @@ import asyncpraw
 import asyncprawcore
 
 from utils.parser import PostParser
-from utils.embed import PostEmbed
 from utils.views import PostViewer
 
 from rich.console import Console
@@ -13,7 +12,7 @@ from rich.console import Console
 def register_get_post(bot: discord.Bot, reddit: asyncpraw.Reddit, console: Console):
     @bot.slash_command(name="post", description="Get a post from Reddit", integration_types=[discord.IntegrationType.user_install, discord.IntegrationType.guild_install])
     async def get_post(ctx: discord.ApplicationContext,
-                       url: discord.Option(str, description="Link to the post")):
+                       url: discord.Option(description="Link to the post")):
         await ctx.defer()
 
         # noinspection PyUnresolvedReferences

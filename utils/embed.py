@@ -29,6 +29,9 @@ class PostEmbed(discord.Embed):
         if include_media:
             self.set_image(url=post.media.urls[media_index])
 
+        if post.media.is_video:
+            self.add_field(name="Can't play video", value="")
+
 
 class CommentEmbed(discord.Embed):
     def __init__(self, comment: CommentParser):
