@@ -1,6 +1,6 @@
 import discord
 
-from .parser import PostParser, CommentParser
+from .parsers import PostParser, CommentParser
 
 
 class PostEmbed(discord.Embed):

@@ -3,7 +3,7 @@ import discord
 import asyncpraw
 import asyncprawcore
 
-from utils.parser import PostParser
+from utils.parsers import PostParser
 from utils.views import PostViewer
 
 from rich.console import Console

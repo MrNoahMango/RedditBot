@@ -1,23 +1,30 @@
 import asyncpraw
+import asyncprawcore
 from asyncpraw.models.comment_forest import CommentForest
 
 
 class AuthorParser:
-    def __init__(self, author: asyncpraw.reddit.Redditor | None):
+    def __init__(self, author: asyncpraw.reddit.Redditor | None, suspended: bool = False):
         self.author = author
+        self.suspended = suspended
 
     @classmethod
     async def create(cls, author: asyncpraw.reddit.Redditor | None):
         if author:
             # noinspection PyProtectedMember
             if not author._fetched:
-                await author.load()
+                try:
+                    await author.load()
+                except asyncprawcore.Forbidden:
+                    return cls(author, True)
+                except Exception as e:
+                    print(e)
 
         return cls(author)
 
     @property
     def raw_name(self) -> str:
-        if self.author:
+        if hasattr(self.author, "name"):
             return self.author.name
         else:
             return "deleted"
@@ -28,14 +35,14 @@ class AuthorParser:
 
     @property
     def url(self):
-        if self.author:
+        if self.raw_name != "deleted":
             return f"https://www.reddit.com/user/{self.raw_name}"
         else:
             return None
 
     @property
     def avatar_url(self):
-        if self.author:
+        if hasattr(self.author, "icon_img"):
             return self.author.icon_img
         else:
             return "https://www.redditstatic.com/shreddit/assets/snoovatar-back-64x64px.png"

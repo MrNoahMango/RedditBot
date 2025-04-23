@@ -1,8 +1,8 @@
 import discord
 from discord.ui import View, Button
 
-from .parser import PostParser, CommentParser
-from .embed import PostEmbed, CommentEmbed
+from .parsers import PostParser, CommentParser
+from .embeds import PostEmbed, CommentEmbed
 
 
 class PostCommentViewer(View):
@@ -44,7 +44,7 @@ class PostViewer(View):
     @discord.ui.button(emoji="<:comment:1363552669733748948>")
     async def comments(self, _: Button, interaction: discord.Interaction):
         comment_view = PostCommentViewer(self.post)
-        await interaction.respond(f"**Comments on {self.post.title}:**", embed=await comment_view.generate_embed(), view=comment_view, ephemeral=True)
+        await interaction.respond(f"Comments on **{self.post.title}:**", embed=await comment_view.generate_embed(), view=comment_view, ephemeral=True)
 
     async def on_timeout(self):
         for item in self.children:
